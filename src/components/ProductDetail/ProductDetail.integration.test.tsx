@@ -175,9 +175,9 @@ describe('ProductDetail Integration Tests', () => {
 
   it('should not call addToCart before product data is loaded', async () => {
     const user = userEvent.setup();
-    let resolveProduct: ((value: Product) => void) | undefined;
+    let productResolver: ((value: Product) => void) | undefined;
     const productPromise = new Promise<Product>((resolve) => {
-      resolveProduct = resolve;
+      productResolver = resolve;
     });
 
     vi.mocked(productService.getProduct).mockReturnValue(productPromise);
@@ -192,8 +192,8 @@ describe('ProductDetail Integration Tests', () => {
     expect(mockAddToCart).not.toHaveBeenCalled();
 
     // Now resolve the product
-    if (resolveProduct) {
-      resolveProduct(mockProduct);
+    if (productResolver) {
+      productResolver(mockProduct);
     }
 
     // Wait for product to load

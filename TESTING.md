@@ -25,7 +25,7 @@ This project uses **Vitest** and **React Testing Library** for unit and integrat
 
 ```bash
 # Run tests once
-npm test -- --run
+npm test run
 
 # Run tests in watch mode (during development)
 npm test
