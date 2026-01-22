@@ -48,7 +48,7 @@ describe('ProductActions', () => {
     });
   });
 
-  it('should render "Add to Cart" button', () => {
+  it('🛒 should render "Add to Cart" button', () => {
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
       data: mockProduct,
       isLoading: false,
@@ -61,7 +61,7 @@ describe('ProductActions', () => {
     expect(screen.getByText('Add to Cart')).toBeInTheDocument();
   });
 
-  it('should call addToCart when button is clicked with product data', async () => {
+  it('✅ should call addToCart when button is clicked with product data', async () => {
     const user = userEvent.setup();
     
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
@@ -80,7 +80,7 @@ describe('ProductActions', () => {
     expect(mockAddToCart).toHaveBeenCalledWith(mockProduct);
   });
 
-  it('should not call addToCart when product data is undefined', async () => {
+  it('⛔ should not call addToCart when product data is undefined', async () => {
     const user = userEvent.setup();
     
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
@@ -98,7 +98,7 @@ describe('ProductActions', () => {
     expect(mockAddToCart).not.toHaveBeenCalled();
   });
 
-  it('should render button with fullWidth prop', () => {
+  it('📏 should render button with fullWidth prop', () => {
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
       data: mockProduct,
       isLoading: false,
@@ -112,7 +112,7 @@ describe('ProductActions', () => {
     expect(button).toHaveAttribute('data-fullwidth', 'true');
   });
 
-  it('should handle loading state without errors', () => {
+  it('⏳ should handle loading state without errors', () => {
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
       data: undefined,
       isLoading: true,

@@ -25,7 +25,7 @@ describe('ProductImage', () => {
     vi.clearAllMocks();
   });
 
-  it('should render product image with first image from images array', () => {
+  it('🖼️ should render product image with first image from images array', () => {
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
       data: mockProduct,
       isLoading: false,
@@ -41,7 +41,7 @@ describe('ProductImage', () => {
     expect(image).toHaveAttribute('alt', 'Test Product');
   });
 
-  it('should fallback to thumbnail when images array is empty', () => {
+  it('🔄 should fallback to thumbnail when images array is empty', () => {
     const productWithNoImages = {
       ...mockProduct,
       images: [],
@@ -60,7 +60,7 @@ describe('ProductImage', () => {
     expect(image).toHaveAttribute('src', 'https://example.com/thumb.jpg');
   });
 
-  it('should handle loading state', () => {
+  it('⏳ should handle loading state', () => {
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
       data: undefined,
       isLoading: true,
@@ -74,7 +74,7 @@ describe('ProductImage', () => {
     expect(container.querySelector('div[class*="imageSection"]')).toBeInTheDocument();
   });
 
-  it('should handle missing product data gracefully', () => {
+  it('🛡️ should handle missing product data gracefully', () => {
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
       data: undefined,
       isLoading: false,

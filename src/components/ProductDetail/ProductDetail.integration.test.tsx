@@ -69,7 +69,7 @@ describe('ProductDetail Integration Tests', () => {
     });
   });
 
-  it('should render loading state while fetching product', async () => {
+  it('⏳ should render loading state while fetching product', async () => {
     vi.mocked(productService.getProduct).mockImplementation(
       () => new Promise(() => {}) // Never resolves
     );
@@ -80,7 +80,7 @@ describe('ProductDetail Integration Tests', () => {
     expect(screen.queryByText('Test Product')).not.toBeInTheDocument();
   });
 
-  it('should render product details when data is successfully fetched', async () => {
+  it('✅ should render product details when data is successfully fetched', async () => {
     vi.mocked(productService.getProduct).mockResolvedValue(mockProduct);
 
     renderWithQueryClient(<ProductDetail />);
@@ -99,7 +99,7 @@ describe('ProductDetail Integration Tests', () => {
     expect(screen.getByText('Add to Cart')).toBeInTheDocument();
   });
 
-  it('should handle product without brand', async () => {
+  it('🏷️ should handle product without brand', async () => {
     vi.mocked(productService.getProduct).mockResolvedValue(mockProductWithoutBrand);
 
     renderWithQueryClient(<ProductDetail />);
@@ -111,7 +111,7 @@ describe('ProductDetail Integration Tests', () => {
     expect(screen.getByText('N/A')).toBeInTheDocument();
   });
 
-  it('should add product to cart when "Add to Cart" button is clicked', async () => {
+  it('🛒 should add product to cart when "Add to Cart" button is clicked', async () => {
     const user = userEvent.setup();
     vi.mocked(productService.getProduct).mockResolvedValue(mockProduct);
 
@@ -129,7 +129,7 @@ describe('ProductDetail Integration Tests', () => {
     expect(mockAddToCart).toHaveBeenCalledWith(mockProduct);
   });
 
-  it('should handle error state when product fetch fails', async () => {
+  it('❌ should handle error state when product fetch fails', async () => {
     const error = new Error('Failed to fetch product');
     vi.mocked(productService.getProduct).mockRejectedValue(error);
 
@@ -146,7 +146,7 @@ describe('ProductDetail Integration Tests', () => {
     expect(container).toBeInTheDocument();
   });
 
-  it('should display product image', async () => {
+  it('📸 should display product image', async () => {
     vi.mocked(productService.getProduct).mockResolvedValue(mockProduct);
 
     renderWithQueryClient(<ProductDetail />);
@@ -158,7 +158,7 @@ describe('ProductDetail Integration Tests', () => {
     });
   });
 
-  it('should fallback to thumbnail when images array is empty', async () => {
+  it('🔄 should fallback to thumbnail when images array is empty', async () => {
     const productWithNoImages = {
       ...mockProduct,
       images: [],
@@ -173,7 +173,7 @@ describe('ProductDetail Integration Tests', () => {
     });
   });
 
-  it('should not call addToCart before product data is loaded', async () => {
+  it('⛔ should not call addToCart before product data is loaded', async () => {
     const user = userEvent.setup();
     let productResolver: ((value: Product) => void) | undefined;
     const productPromise = new Promise<Product>((resolve) => {
@@ -206,7 +206,7 @@ describe('ProductDetail Integration Tests', () => {
     expect(mockAddToCart).toHaveBeenCalledWith(mockProduct);
   });
 
-  it('should render all meta information correctly', async () => {
+  it('📋 should render all meta information correctly', async () => {
     vi.mocked(productService.getProduct).mockResolvedValue(mockProduct);
 
     renderWithQueryClient(<ProductDetail />);

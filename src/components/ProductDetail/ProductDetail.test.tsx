@@ -42,7 +42,7 @@ describe('ProductDetail', () => {
     vi.clearAllMocks();
   });
 
-  it('should render all child components', () => {
+  it('🎨 should render all child components', () => {
     renderWithQueryClient(<ProductDetail />);
 
     expect(screen.getByTestId('product-navigation')).toBeInTheDocument();
@@ -52,7 +52,7 @@ describe('ProductDetail', () => {
     expect(screen.getByTestId('product-actions')).toBeInTheDocument();
   });
 
-  it('should render with correct layout structure', () => {
+  it('📐 should render with correct layout structure', () => {
     const { container } = renderWithQueryClient(<ProductDetail />);
 
     // Check that container and product divs exist
@@ -65,7 +65,7 @@ describe('ProductDetail', () => {
     expect(infoSection).toBeInTheDocument();
   });
 
-  it('should render ProductImage outside of infoSection', () => {
+  it('🖼️ should render ProductImage outside of infoSection', () => {
     const { container } = renderWithQueryClient(<ProductDetail />);
 
     const productDiv = container.querySelector('div[class*="product"]');
@@ -76,7 +76,7 @@ describe('ProductDetail', () => {
     expect(infoSection).not.toContainElement(imageElement);
   });
 
-  it('should render ProductInfo, ProductMeta, and ProductActions inside infoSection', () => {
+  it('📦 should render ProductInfo, ProductMeta, and ProductActions inside infoSection', () => {
     const { container } = renderWithQueryClient(<ProductDetail />);
 
     const infoSection = container.querySelector('div[class*="infoSection"]');
