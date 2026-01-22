@@ -10,6 +10,7 @@ To start the development server:
 ```bash
 npm run dev
 ```
+The development server will start on port 5173 by default (http://localhost:5173).
 
 ### Running Tests
 To run the test suite:
