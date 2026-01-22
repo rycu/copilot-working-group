@@ -37,7 +37,7 @@ describe('useProduct', () => {
     vi.clearAllMocks();
   });
 
-  it('should fetch product data successfully', async () => {
+  it('✅ should fetch product data successfully', async () => {
     const { useParams } = await import('@tanstack/react-router');
     vi.mocked(useParams).mockReturnValue({ productId: '1' });
     vi.mocked(productService.getProduct).mockResolvedValue(mockProduct);
@@ -52,7 +52,7 @@ describe('useProduct', () => {
     expect(productService.getProduct).toHaveBeenCalledWith(1);
   });
 
-  it('should handle loading state', async () => {
+  it('⏳ should handle loading state', async () => {
     const { useParams } = await import('@tanstack/react-router');
     vi.mocked(useParams).mockReturnValue({ productId: '1' });
     vi.mocked(productService.getProduct).mockImplementation(
@@ -67,7 +67,7 @@ describe('useProduct', () => {
     expect(result.current.data).toBeUndefined();
   });
 
-  it('should handle error state', async () => {
+  it('❌ should handle error state', async () => {
     const { useParams } = await import('@tanstack/react-router');
     vi.mocked(useParams).mockReturnValue({ productId: '1' });
     const error = new Error('Failed to fetch product');
@@ -83,7 +83,7 @@ describe('useProduct', () => {
     expect(result.current.data).toBeUndefined();
   });
 
-  it('should not fetch when product ID is invalid', async () => {
+  it('🚫 should not fetch when product ID is invalid', async () => {
     const { useParams } = await import('@tanstack/react-router');
     vi.mocked(useParams).mockReturnValue({ productId: undefined });
 
@@ -95,7 +95,7 @@ describe('useProduct', () => {
     expect(productService.getProduct).not.toHaveBeenCalled();
   });
 
-  it('should convert productId string to number', async () => {
+  it('🔢 should convert productId string to number', async () => {
     const { useParams } = await import('@tanstack/react-router');
     vi.mocked(useParams).mockReturnValue({ productId: '123' });
     vi.mocked(productService.getProduct).mockResolvedValue(mockProduct);
@@ -107,7 +107,7 @@ describe('useProduct', () => {
     await waitFor(() => expect(productService.getProduct).toHaveBeenCalledWith(123));
   });
 
-  it('should use correct query key', async () => {
+  it('🔑 should use correct query key', async () => {
     const { useParams } = await import('@tanstack/react-router');
     vi.mocked(useParams).mockReturnValue({ productId: '1' });
     vi.mocked(productService.getProduct).mockResolvedValue(mockProduct);

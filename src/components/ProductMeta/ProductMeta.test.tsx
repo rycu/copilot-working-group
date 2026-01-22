@@ -25,7 +25,7 @@ describe('ProductMeta', () => {
     vi.clearAllMocks();
   });
 
-  it('should render brand, category, stock, and rating when data is available', () => {
+  it('📋 should render brand, category, stock, and rating when data is available', () => {
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
       data: mockProduct,
       isLoading: false,
@@ -45,7 +45,7 @@ describe('ProductMeta', () => {
     expect(screen.getByText('⭐ 4.5')).toBeInTheDocument();
   });
 
-  it('should display "N/A" when brand is not available', () => {
+  it('🏷️ should display "N/A" when brand is not available', () => {
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
       data: mockProductWithoutBrand,
       isLoading: false,
@@ -58,7 +58,7 @@ describe('ProductMeta', () => {
     expect(screen.getByText('N/A')).toBeInTheDocument();
   });
 
-  it('should handle loading state', () => {
+  it('⏳ should handle loading state', () => {
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
       data: undefined,
       isLoading: true,
@@ -72,7 +72,7 @@ describe('ProductMeta', () => {
     expect(screen.queryByText('TestBrand')).not.toBeInTheDocument();
   });
 
-  it('should format rating to 1 decimal place', () => {
+  it('⭐ should format rating to 1 decimal place', () => {
     const productWithPreciseRating = {
       ...mockProduct,
       rating: 4.567,

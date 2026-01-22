@@ -25,7 +25,7 @@ describe('ProductInfo', () => {
     vi.clearAllMocks();
   });
 
-  it('should render product title, price, and description when data is available', () => {
+  it('📝 should render product title, price, and description when data is available', () => {
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
       data: mockProduct,
       isLoading: false,
@@ -40,7 +40,7 @@ describe('ProductInfo', () => {
     expect(screen.getByText('This is a test product description')).toBeInTheDocument();
   });
 
-  it('should handle loading state', () => {
+  it('⏳ should handle loading state', () => {
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
       data: undefined,
       isLoading: true,
@@ -54,7 +54,7 @@ describe('ProductInfo', () => {
     expect(screen.queryByText('Test Product')).not.toBeInTheDocument();
   });
 
-  it('should handle missing product data gracefully', () => {
+  it('🛡️ should handle missing product data gracefully', () => {
     vi.spyOn(useProductHook, 'useProduct').mockReturnValue({
       data: undefined,
       isLoading: false,
@@ -68,7 +68,7 @@ describe('ProductInfo', () => {
     expect(container.querySelector('div[class*="info"]')).toBeInTheDocument();
   });
 
-  it('should format price to 2 decimal places', () => {
+  it('💰 should format price to 2 decimal places', () => {
     const productWithOddPrice = {
       ...mockProduct,
       price: 99.9,
