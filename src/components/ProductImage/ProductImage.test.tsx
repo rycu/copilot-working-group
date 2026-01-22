@@ -1,8 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { UseQueryResult } from '@tanstack/react-query';
 import { ProductImage } from './index';
 import { mockProduct } from '../../test/mockData';
+import type { Product } from '../../types/product';
 import * as useProductHook from '../../hooks/useProduct';
 
 // Helper function to render component with QueryClient
@@ -29,7 +31,7 @@ describe('ProductImage', () => {
       isLoading: false,
       isError: false,
       error: null,
-    } as any);
+    } as UseQueryResult<Product, Error>);
 
     renderWithQueryClient(<ProductImage />);
 
@@ -50,7 +52,7 @@ describe('ProductImage', () => {
       isLoading: false,
       isError: false,
       error: null,
-    } as any);
+    } as Partial<UseQueryResult<Product, Error>> as UseQueryResult<Product, Error>);
 
     renderWithQueryClient(<ProductImage />);
 
@@ -64,7 +66,7 @@ describe('ProductImage', () => {
       isLoading: true,
       isError: false,
       error: null,
-    } as any);
+    } as UseQueryResult<Product, Error>);
 
     const { container } = renderWithQueryClient(<ProductImage />);
     
@@ -78,7 +80,7 @@ describe('ProductImage', () => {
       isLoading: false,
       isError: false,
       error: null,
-    } as any);
+    } as UseQueryResult<Product, Error>);
 
     const { container } = renderWithQueryClient(<ProductImage />);
     

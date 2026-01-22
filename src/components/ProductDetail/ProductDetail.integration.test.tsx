@@ -2,15 +2,17 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { ReactNode } from 'react';
 import { ProductDetail } from './index';
 import { mockProduct, mockProductWithoutBrand } from '../../test/mockData';
+import type { Product } from '../../types/product';
 import { productService } from '../../services';
 import * as CartContext from '../../contexts/useCartContext';
 
 // Mock TanStack Router
 vi.mock('@tanstack/react-router', () => ({
   useParams: vi.fn(() => ({ productId: '1' })),
-  Link: ({ children, ...props }: any) => <a {...props}>{children}</a>,
+  Link: ({ children, ...props }: { children: ReactNode; to?: string; params?: Record<string, unknown> }) => <a {...props}>{children}</a>,
 }));
 
 // Mock product service
@@ -22,16 +24,16 @@ vi.mock('../../services', () => ({
 
 // Mock CartContext
 vi.mock('../../contexts/useCartContext', async (importOriginal) => {
-  const actual = await importOriginal();
+  const actual = await importOriginal<typeof import('../../contexts/useCartContext')>();
   return {
-    ...(actual as any),
+    ...actual,
     useCartContext: vi.fn(),
   };
 });
 
 // Mock Button component for simpler testing
 vi.mock('../ui/Button', () => ({
-  Button: ({ children, onClick, fullWidth }: any) => (
+  Button: ({ children, onClick, fullWidth }: { children: ReactNode; onClick: () => void; fullWidth?: boolean }) => (
     <button onClick={onClick} data-fullwidth={fullWidth}>
       {children}
     </button>
@@ -173,12 +175,12 @@ describe('ProductDetail Integration Tests', () => {
 
   it('should not call addToCart before product data is loaded', async () => {
     const user = userEvent.setup();
-    let resolveProduct: (value: any) => void;
-    const productPromise = new Promise((resolve) => {
+    let resolveProduct: ((value: Product) => void) | undefined;
+    const productPromise = new Promise<Product>((resolve) => {
       resolveProduct = resolve;
     });
 
-    vi.mocked(productService.getProduct).mockReturnValue(productPromise as any);
+    vi.mocked(productService.getProduct).mockReturnValue(productPromise);
 
     renderWithQueryClient(<ProductDetail />);
 
@@ -190,7 +192,9 @@ describe('ProductDetail Integration Tests', () => {
     expect(mockAddToCart).not.toHaveBeenCalled();
 
     // Now resolve the product
-    resolveProduct!(mockProduct);
+    if (resolveProduct) {
+      resolveProduct(mockProduct);
+    }
 
     // Wait for product to load
     await waitFor(() => {

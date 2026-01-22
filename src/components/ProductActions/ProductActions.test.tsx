@@ -2,14 +2,17 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { UseQueryResult } from '@tanstack/react-query';
+import type { ReactNode } from 'react';
 import { ProductActions } from './index';
 import { mockProduct } from '../../test/mockData';
+import type { Product } from '../../types/product';
 import * as useProductHook from '../../hooks/useProduct';
 import * as useCartContextHook from '../../contexts/useCartContext';
 
 // Mock the Button component
 vi.mock('../ui/Button', () => ({
-  Button: ({ children, onClick, fullWidth }: any) => (
+  Button: ({ children, onClick, fullWidth }: { children: ReactNode; onClick: () => void; fullWidth?: boolean }) => (
     <button onClick={onClick} data-fullwidth={fullWidth}>
       {children}
     </button>
@@ -51,7 +54,7 @@ describe('ProductActions', () => {
       isLoading: false,
       isError: false,
       error: null,
-    } as any);
+    } as UseQueryResult<Product, Error>);
 
     renderWithQueryClient(<ProductActions />);
 
@@ -66,7 +69,7 @@ describe('ProductActions', () => {
       isLoading: false,
       isError: false,
       error: null,
-    } as any);
+    } as UseQueryResult<Product, Error>);
 
     renderWithQueryClient(<ProductActions />);
 
@@ -85,7 +88,7 @@ describe('ProductActions', () => {
       isLoading: true,
       isError: false,
       error: null,
-    } as any);
+    } as UseQueryResult<Product, Error>);
 
     renderWithQueryClient(<ProductActions />);
 
@@ -101,7 +104,7 @@ describe('ProductActions', () => {
       isLoading: false,
       isError: false,
       error: null,
-    } as any);
+    } as UseQueryResult<Product, Error>);
 
     renderWithQueryClient(<ProductActions />);
 
@@ -115,7 +118,7 @@ describe('ProductActions', () => {
       isLoading: true,
       isError: false,
       error: null,
-    } as any);
+    } as UseQueryResult<Product, Error>);
 
     const { container } = renderWithQueryClient(<ProductActions />);
     
